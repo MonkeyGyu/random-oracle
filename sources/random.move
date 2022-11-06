@@ -11,7 +11,7 @@ module random::oracle{
     use std::vector;
     
     use sui::sui::SUI;
-    struct Random has key{
+    struct Random has key,store{
         id:UID,
         random:vector<u8>,
         lastMaker:address,
