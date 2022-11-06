@@ -81,6 +81,7 @@ module random::oracle{
     public fun get_random_number(random:&Random):vector<u8>{
         random.random
     }
+    
     public fun get_random(random:&Random,token:Coin<SUI>,ctx:&mut TxContext):u64{
         assert!(coin::value(&token) >= random.fee,0);
         transfer::transfer(token,random.owner);
