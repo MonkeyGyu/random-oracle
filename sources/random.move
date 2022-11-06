@@ -79,7 +79,7 @@ module random::oracle{
 
 
     public fun get_random_number(random:&Random):vector<u8>{
-        let vector = random.random
+        let vector = random.random;
         let result = 0;
           loop{
             if (vector::is_empty(v)){
