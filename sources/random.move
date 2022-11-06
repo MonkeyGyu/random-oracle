@@ -66,7 +66,7 @@ module random::oracle{
 
 
     fun u64_from_vector(v:&vector<u8>,ctx:&mut TxContext):u64{
-        let result = tx_context::epoch(ctx);
+        let result = 0;
         let vec = *v;
         loop{
             if (vector::is_empty(v)){
@@ -79,7 +79,15 @@ module random::oracle{
 
 
     public fun get_random_number(random:&Random):vector<u8>{
-        random.random
+        let vector = random.random
+        let result = 0;
+          loop{
+            if (vector::is_empty(v)){
+                break
+            };
+            result = result + (vector::pop_back(&mut vec) as u64) ;
+        };
+
     }
     public fun get_random(random:&Random,token:Coin<SUI>,ctx:&mut TxContext):u64{
         assert!(coin::value(&token) >= random.fee,0);
