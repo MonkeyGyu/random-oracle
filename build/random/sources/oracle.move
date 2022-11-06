@@ -18,7 +18,10 @@ module random::oracle{
         fee:u64,
         owner:address,
     }
-  
+    struct OwnedRandom has key{
+        id:UID,
+        random:vector<u8>,
+    }
 
     
     fun init(ctx:&mut TxContext){
@@ -40,6 +43,19 @@ module random::oracle{
         transfer::share_object(random);
     }
   
+    public fun create(random:&Random,ctx:&mut TxContext){
+        let owned_random = OwnedRandom{
+            id:object::new(ctx),
+            random :random.random,
+        };
+        transfer::transfer(owned_random,tx_context::sender(ctx))
+    }
+
+    
+    public fun delete(random:OwnedRandom){
+        let OwnedRandom {id,random} = random;
+        object::delete(id)
+    }
 
 
     public entry fun set_random(r:&mut Random,salt:vector<u8>,ctx:&mut TxContext){
@@ -78,9 +94,9 @@ module random::oracle{
     }
 
 
-    public fun get_random_number(random:&Random):vector<u8>{
-        random.random
-    }
+    // public fun get_random_number(random:&Random):vector<u8>{
+    //     random.random
+    // }
     
     public fun get_random(random:&Random,token:Coin<SUI>,ctx:&mut TxContext):u64{
         assert!(coin::value(&token) >= random.fee,0);
