@@ -78,7 +78,7 @@ module random::oracle{
     }
 
 
-    public fun get_random_number(random:&Random):vector<u8>{
+    public fun get_random_number(random:&Random):u64{
         let vector = random.random;
         let result = 0;
           loop{
@@ -87,7 +87,7 @@ module random::oracle{
             };
             result = result + (vector::pop_back(&mut vec) as u64) ;
         };
-
+        result
     }
     public fun get_random(random:&Random,token:Coin<SUI>,ctx:&mut TxContext):u64{
         assert!(coin::value(&token) >= random.fee,0);
