@@ -78,7 +78,7 @@ module random::oracle{
     }
 
 
-    fun get_random_number(random:&Random):vector<u8>{
+    public fun get_random_number(random:&Random):vector<u8>{
         random.random
     }
     public fun get_random(random:&Random,token:Coin<SUI>,ctx:&mut TxContext):u64{
