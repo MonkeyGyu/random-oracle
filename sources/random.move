@@ -46,11 +46,12 @@ module random::oracle{
     public fun create(random:&Random,ctx:&mut TxContext){
         let owned_random = OwnedRandom{
             id:object::new(ctx),
-            random = get_random(random.random),
+            random :get_random(random.random),
         }
         transfer::transfer(owned_random,tx_context::sender(ctx))
     }
 
+    
     public fun delete(random:OwnedRandom,ctx:&mut TxContext){
         let {id,random} = random;
         object::delete(id)
